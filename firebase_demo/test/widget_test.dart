@@ -15,3 +15,7 @@ void main() {
     expect(find.text('January 1st'), findsNothing);
   });
 }
+
+class MyApp {
+  const MyApp();
+}
