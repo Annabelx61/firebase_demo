@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "862915485404",
+    "project_id": "fir-codelab2-fb257",
+    "storage_bucket": "fir-codelab2-fb257.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862915485404:android:6803c205a3af31b8e5de19",
+        "android_client_info": {
+          "package_name": "com.example.firebase_demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwOQDeScbuATI9IZXj1bZco1fuWnCYcXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
