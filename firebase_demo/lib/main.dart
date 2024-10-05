@@ -1,6 +1,7 @@
 // Copyright 2022 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart'; 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';               
@@ -9,9 +10,13 @@ import 'package:provider/provider.dart';
 import 'app_state.dart';                                 
 import 'home_page.dart';
 
-void main() {
+Future<void> main() async {
   // Modify from here...
   WidgetsFlutterBinding.ensureInitialized();
+  
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp();
+  }
 
   runApp(ChangeNotifierProvider(
     create: (context) => ApplicationState(),
