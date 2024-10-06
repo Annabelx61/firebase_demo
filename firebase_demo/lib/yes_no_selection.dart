@@ -20,7 +20,11 @@ class YesNoSelection extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     labelText: 'Enter number of attendees',
-                  )
+                  ),
+                  onChanged: (context) {
+                    final attendees = int.tryParse(context);
+                    onSelection(attendees!);
+                  }
                 ),
               ),
               const SizedBox(width: 8),

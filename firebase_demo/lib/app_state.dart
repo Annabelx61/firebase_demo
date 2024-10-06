@@ -16,6 +16,9 @@ class ApplicationState extends ChangeNotifier {
 
   StreamSubscription<DocumentSnapshot>? _attendingSubscription;
 
+  int _peopleAttending = 0;
+  int get peopleAttending => _peopleAttending;
+
   int get attending => _attendees;
 
   set attending(int count) {
@@ -26,6 +29,8 @@ class ApplicationState extends ChangeNotifier {
     
     userDoc.set(<String, dynamic>{'attendees': count});
 
+    _peopleAttending = count;
+    notifyListeners();
   }
 
   ApplicationState() {
