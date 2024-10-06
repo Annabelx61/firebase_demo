@@ -5,64 +5,31 @@ import 'src/widgets.dart';
 
 class YesNoSelection extends StatelessWidget {
   const YesNoSelection(
-      {super.key, required this.state, required this.onSelection});
-  final Attending state;
-  final void Function(Attending selection) onSelection;
+      {super.key, required this.numberOfAttendees, required this.onSelection});
+  final int numberOfAttendees;
+  final void Function(int selection) onSelection;
 
   @override
   Widget build(BuildContext context) {
-    switch (state) {
-      case Attending.yes:
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              FilledButton(
-                onPressed: () => onSelection(Attending.yes),
-                child: const Text('YES'),
+              Expanded(
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Enter number of attendees',
+                  )
+                ),
               ),
               const SizedBox(width: 8),
-              TextButton(
-                onPressed: () => onSelection(Attending.no),
-                child: const Text('NO'),
-              ),
-            ],
-          ),
-        );
-      case Attending.no:
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              TextButton(
-                onPressed: () => onSelection(Attending.yes),
-                child: const Text('YES'),
-              ),
-              const SizedBox(width: 8),
-              FilledButton(
-                onPressed: () => onSelection(Attending.no),
-                child: const Text('NO'),
-              ),
-            ],
-          ),
-        );
-      default:
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              StyledButton(
-                onPressed: () => onSelection(Attending.yes),
-                child: const Text('YES'),
-              ),
-              const SizedBox(width: 8),
-              StyledButton(
-                onPressed: () => onSelection(Attending.no),
-                child: const Text('NO'),
-              ),
+              FilledButton(onPressed: () {
+                onSelection(numberOfAttendees);
+              }, 
+              child: const Text('Ok')),
             ],
           ),
         );
     }
-  }
 }
