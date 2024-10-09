@@ -26,24 +26,6 @@ class ApplicationState extends ChangeNotifier {
     notifyListeners();
   }
 
-  // int _peopleAttending = 0;
-  // int get peopleAttending => _peopleAttending;
-
-  // int get attending => _attendees;
-
-  // set attending(int count) {
-  //   _attendees = count;
-  //   final userDoc = FirebaseFirestore.instance
-  //       .collection('attendees')
-  //       .doc(FirebaseAuth.instance.currentUser!.uid);
-
-    
-  //   userDoc.set(<String, dynamic>{'attendees': _attendees});
-
-  //   // _peopleAttending = count;
-  //   notifyListeners();
-  // }
-
   ApplicationState() {
     init();
   }
