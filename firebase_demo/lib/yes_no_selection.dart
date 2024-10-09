@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class YesNoSelection extends StatefulWidget {
   const YesNoSelection(
-      {super.key, required this.onSelection});
+      {super.key, required this.onSelection, required int attendees});
 
   final void Function(int selection) onSelection;
 

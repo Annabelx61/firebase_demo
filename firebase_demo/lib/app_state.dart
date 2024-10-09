@@ -16,22 +16,33 @@ class ApplicationState extends ChangeNotifier {
 
   StreamSubscription<DocumentSnapshot>? _attendingSubscription;
 
-  int _peopleAttending = 0;
-  int get peopleAttending => _peopleAttending;
-
-  int get attending => _attendees;
-
-  set attending(int count) {
+  void setAttendees(int newAttendees) {
+    _attendees = newAttendees;
     final userDoc = FirebaseFirestore.instance
         .collection('attendees')
         .doc(FirebaseAuth.instance.currentUser!.uid);
 
-    
-    userDoc.set(<String, dynamic>{'attendees': count});
-
-    _peopleAttending = count;
+    userDoc.set({'attendees': _attendees}, SetOptions(merge: true));
     notifyListeners();
   }
+
+  // int _peopleAttending = 0;
+  // int get peopleAttending => _peopleAttending;
+
+  // int get attending => _attendees;
+
+  // set attending(int count) {
+  //   _attendees = count;
+  //   final userDoc = FirebaseFirestore.instance
+  //       .collection('attendees')
+  //       .doc(FirebaseAuth.instance.currentUser!.uid);
+
+    
+  //   userDoc.set(<String, dynamic>{'attendees': _attendees});
+
+  //   // _peopleAttending = count;
+  //   notifyListeners();
+  // }
 
   ApplicationState() {
     init();
@@ -54,14 +65,17 @@ class ApplicationState extends ChangeNotifier {
       EmailAuthProvider(),
     ]);
 
+
+
     FirebaseFirestore.instance
         .collection('attendees')
-        .where('attending', isEqualTo: true)
-        .snapshots()
-        .listen((snapshot) {
-      _attendees = snapshot.docs.length;
-      notifyListeners();
-    });
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set({'attending': attendees});
+    //     .snapshots()
+    //     .listen((snapshot) {
+    //   _attendees = snapshot.docs.length;
+    //   notifyListeners();
+    // });
 
     FirebaseAuth.instance.userChanges().listen((user) {
       if (user != null) {
@@ -87,15 +101,11 @@ class ApplicationState extends ChangeNotifier {
             .doc(user.uid)
             .snapshots()
             .listen((snapshot) {
-          // if (snapshot.data() != null) {
-          //   if (snapshot.data()!['attendees'] as bool) {
-          //     _attending = Attending.yes;
-          //   } else {
-          //     _attending = Attending.no;
-          //   }
-          // } else {
-          //   _attending = Attending.unknown;
-          // }
+          if (snapshot.data() != null) {
+            _attendees = snapshot.data()!['attendees'];
+          } else {
+            _attendees = 0;
+          }
           notifyListeners();
         });
       } else {
