@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                   const Paragraph('No one going'),
                 if (appState.loggedIn) ...[
                   YesNoSelection(
-                    attendees: appState.attendees,
+                    currentAttendees: appState.attendees,
                     onSelection: (int attending) {
                       appState.setAttendees(attending);
                     }

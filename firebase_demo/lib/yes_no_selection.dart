@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 class YesNoSelection extends StatefulWidget {
   const YesNoSelection(
-      {super.key, required this.onSelection, required int attendees});
+      {super.key, required this.onSelection, required this.currentAttendees});
 
   final void Function(int selection) onSelection;
+  final int currentAttendees;
 
   @override
   _YesNoSelectionState createState() => _YesNoSelectionState();
@@ -33,7 +34,7 @@ class _YesNoSelectionState extends State<YesNoSelection> {
           ElevatedButton(
             onPressed: () {
               final attendees = int.tryParse(_controller.text);
-              widget.onSelection(attendees!);
+              widget.onSelection(widget.currentAttendees + attendees!);
             }, 
           child: const Text('Ok')),
         ],
