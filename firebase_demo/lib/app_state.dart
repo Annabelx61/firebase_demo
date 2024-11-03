@@ -50,14 +50,19 @@ class ApplicationState extends ChangeNotifier {
 
 
     FirebaseFirestore.instance
-        .collection('attendees')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .set({'attending': attendees});
-    //     .snapshots()
-    //     .listen((snapshot) {
-    //   _attendees = snapshot.docs.length;
-    //   notifyListeners();
-    // });
+    .collection('attendees')
+    .doc(FirebaseAuth.instance.currentUser!.uid)
+    .set({'attending': attendees})
+    .then((_) {
+      FirebaseFirestore.instance
+          .collection('attendees')
+          .snapshots()
+          .listen((snapshot) {
+            _attendees = snapshot.docs.length;
+            notifyListeners();
+          });
+    });
+
 
     FirebaseAuth.instance.userChanges().listen((user) {
       if (user != null) {
@@ -84,7 +89,7 @@ class ApplicationState extends ChangeNotifier {
             .snapshots()
             .listen((snapshot) {
           if (snapshot.data() != null) {
-            _attendees = snapshot.data()!['attendees'];
+            _attendees = snapshot.data()!['attendees']??0;
           } else {
             _attendees = 0;
           }
@@ -94,6 +99,7 @@ class ApplicationState extends ChangeNotifier {
         _loggedIn = false;
         _guestBookMessages = [];
         _guestBookSubscription?.cancel();
+        _attendingSubscription?.cancel();
       }
       notifyListeners();
     });
